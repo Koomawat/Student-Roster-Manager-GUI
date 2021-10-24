@@ -144,38 +144,6 @@ public class Constants {
      */
     public static final int ROSTER_SIZE_CHANGE = 1;
     /**
-     * Command name index in string split array.
-     */
-    public static final int STRING_SPLIT_COMMAND_NAME = 0;
-    /**
-     * Name index in string split array.
-     */
-    public static final int STRING_SPLIT_NAME = 1;
-    /**
-     * Major index in string split array.
-     */
-    public static final int STRING_SPLIT_MAJOR = 2;
-    /**
-     * Credits index in string split array.
-     */
-    public static final int STRING_SPLIT_CREDITS = 3;
-    /**
-     * Amount index in string split array.
-     */
-    public static final int STRING_SPLIT_AMOUNT = 3;
-    /**
-     * Truth value index in string split array.
-     */
-    public static final int STRING_SPLIT_TRUTH = 4;
-    /**
-     * Date index in string split array.
-     */
-    public static final int STRING_SPLIT_DATE = 4;
-    /**
-     * State index in string split array.
-     */
-    public static final int STRING_SPLIT_STATE = 4;
-    /**
      * Used to check for negative payments.
      */
     public static final int MIN_PAYMENT = 0;

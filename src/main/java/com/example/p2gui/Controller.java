@@ -3,7 +3,8 @@ package com.example.p2gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.text.Text;
+
+import java.text.DecimalFormat;
 
 /**
  * Controller class to control user interaction..
@@ -34,6 +35,12 @@ public class Controller {
      */
     @FXML
     private TextField studentNamePaying;
+
+    /**
+     *
+     */
+    @FXML
+    private TextField abroadStudentName;
 
     /**
      *
@@ -100,6 +107,12 @@ public class Controller {
      */
     @FXML
     private ToggleGroup majorPayment;
+
+    /**
+     *
+     */
+    @FXML
+    private ToggleGroup majorAbroad;
 
     /**
      *
@@ -219,7 +232,10 @@ public class Controller {
     }
 
     /**
-     *
+     * @param name
+     * @param major
+     * @param rosterCollection
+     * @return
      */
     private Student uniqueStudent(String name, Major major, Roster rosterCollection) {
         Profile comparing = new Profile(name, major);
@@ -232,6 +248,10 @@ public class Controller {
         return null;
     }
 
+    /**
+     * @param majorButton
+     * @return
+     */
     private Major getMajor(RadioButton majorButton) {
         String majorSelect = majorButton.getText();
         Major major = switch (majorSelect) {
@@ -249,7 +269,7 @@ public class Controller {
      *
      */
     @FXML
-    void add(ActionEvent event) {
+    void add() {
         String name = studentName.getText();
 
         if (name.isEmpty()) {
@@ -323,7 +343,6 @@ public class Controller {
                     returnText.appendText("Student added.\n");
                 }
             } else {
-                System.out.println("here");
                 boolean studyingAbroadCheck = studyAbroad.isSelected();
 
                 if (stuCredits < Constants.FULL_TIME_MIN_CREDITS) {
@@ -358,7 +377,7 @@ public class Controller {
      *
      */
     @FXML
-    void remove(ActionEvent event) {
+    void remove() {
 
         String name = studentName.getText();
 
@@ -391,7 +410,7 @@ public class Controller {
      *
      */
     @FXML
-    void calculateTuition(ActionEvent event) {
+    void calculateTuition() {
 
         String name = studentName.getText();
 
@@ -414,7 +433,12 @@ public class Controller {
             Student studentToRemove = uniqueStudent(name, major, studentRoster);
             studentToRemove.tuitionDue();
             double cost = studentToRemove.getTuitionDue();
-            amountDue.setText(String.valueOf(cost) + "\n");
+
+            /**
+             * Sets the decimal format to apply to tuition due and last payment.
+             */
+            DecimalFormat df = new DecimalFormat("###,##0.00");
+            amountDue.setText(String.valueOf(df.format(cost)) + "\n");
             returnText.appendText("Tuition calculated.\n");
             residentButton.setSelected(false);
             nonResidentButton.setSelected(false);
@@ -426,7 +450,7 @@ public class Controller {
      *
      */
     @FXML
-    void paying(ActionEvent event) {
+    void paying() {
         String name = studentNamePaying.getText();
 
         if (name.isEmpty()) {
@@ -479,8 +503,11 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     */
     @FXML
-    void setFinancial(ActionEvent event) {
+    void setFinancial() {
         String name = studentNamePaying.getText();
 
         if (name.isEmpty()) {
@@ -515,9 +542,10 @@ public class Controller {
         if (financeRequest > Constants.MAX_FINANCE) {
             returnText.appendText("Finance amount cannot exceed $10000.\n");
             return;
-        }
-
-        if (financeRequest > stuToFinance.getTuitionDue()) {
+        } else if (financeRequest < Constants.MIN_FINANCE) {
+            returnText.appendText("Finance amount can't be negative.\n");
+            return;
+        } else if (financeRequest > stuToFinance.getTuitionDue()) {
             returnText.appendText("Finance amount can't be more than tuition due.\n");
             return;
         }

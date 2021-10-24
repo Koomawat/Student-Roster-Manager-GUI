@@ -11,19 +11,16 @@ public class Roster {
 
     /**
      * Student roster collection array.
-     *
      */
     private Student[] roster;
     /**
      * Size of student roster.
-     *
      */
     private int size; //keep track of the number of students in the roster
 
     /**
      * Roster constructor.
      * Sets the default size to 4.
-     *
      */
     public Roster() {
         int baseRosterSize = 4;
@@ -54,7 +51,7 @@ public class Roster {
      *
      * @return roster collection array.
      */
-    public Student[] getStudentRoster(){
+    public Student[] getStudentRoster() {
         return roster;
     }
 
@@ -63,13 +60,12 @@ public class Roster {
      *
      * @return array size.
      */
-    public int getSize(){
+    public int getSize() {
         return size;
     }
 
     /**
      * Grows collection by 4 when full.
-     *
      */
     private void grow() {
         Student[] studentCopy = new Student[getSize()];
@@ -144,29 +140,30 @@ public class Roster {
 
     /**
      * Prints student roster in no specific order.
-     *
      */
-    public void print() {
-        System.out.println("* list of students in the roster **");
+    public String print() {
+        String printing;
+        printing = "* list of students in the roster **\n";
 
         for (int i = 0; i < getSize(); i++) {
             String data = getStudentRoster()[i].toString();
-            System.out.println(data);
+            printing += data + "\n";
         }
 
-        System.out.println("* end of roster **");
+        printing += "* end of roster **\n";
+        return printing;
     }
 
     /**
      * Prints student roster by name.
-     *
      */
-    public void printByName() {
-        System.out.println("* list of students ordered by name **");
+    public String printByName() {
+        String printing;
+        printing = "* list of students ordered by name **\n";
 
         for (int i = 0; i < getSize() - Constants.ROSTER_SIZE_CHANGE; i++) {
             for (int j = i + Constants.ROSTER_SIZE_CHANGE; j < getSize(); j++) {
-                if(getStudentRoster()[i].getProfile().getName().compareTo(getStudentRoster()[j].getProfile().getName()) > 0) {
+                if (getStudentRoster()[i].getProfile().getName().compareTo(getStudentRoster()[j].getProfile().getName()) > 0) {
                     Student temp = getStudentRoster()[i];
                     getStudentRoster()[i] = getStudentRoster()[j];
                     getStudentRoster()[j] = temp;
@@ -176,19 +173,19 @@ public class Roster {
 
         for (int i = 0; i < getSize(); i++) {
             String data = getStudentRoster()[i].toString();
-            System.out.println(data);
+            printing += data + "\n";
         }
 
-
-        System.out.println("* end of roster **");
+        printing += "* end of roster **\n";
+        return printing;
     }
 
     /**
      * Prints student roster by payment date.
-     *
      */
-    public void printByDate() {
-        System.out.println("* list of students made payments ordered by payment date **");
+    public String printByDate() {
+        String printing;
+        printing = "* list of students made payments ordered by payment date **\n";
 
         int dateCounts = 0;
 
@@ -240,10 +237,11 @@ public class Roster {
 
             //printing out the earliest date and marking it as visited.
             String data = dateRoster[earliestDate_Index].toString();
-            System.out.println(data);
+            printing += data + "\n";
 
         }
 
-        System.out.println("* end of roster **");
+        printing += "* end of roster **\n";
+        return printing;
     }
 }
