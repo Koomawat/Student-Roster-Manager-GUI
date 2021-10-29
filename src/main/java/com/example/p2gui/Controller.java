@@ -1,4 +1,4 @@
-package com.example.p2gui;
+package tuition;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -188,8 +188,8 @@ public class Controller {
     /**
      * Searches the roster to find if a student exists or not.
      *
-     * @param name name of the student.
-     * @param major major of the student.
+     * @param name             name of the student.
+     * @param major            major of the student.
      * @param rosterCollection the student roster.
      * @return the student if found, null otherwise.
      */
@@ -226,7 +226,6 @@ public class Controller {
     /**
      * Resets the options once Add, Remove, or Tuition due is pressed.
      * Resets by unselecting and setting disables.
-     *
      */
     private void resetInputs() {
         residentButton.setSelected(false);
@@ -544,7 +543,15 @@ public class Controller {
             return;
         }
 
-        String date = datePicker.getValue().toString();
+        String date;
+
+        try {
+            date = datePicker.getValue().toString();
+        } catch (NullPointerException exception) {
+            returnText.appendText("Date of payment missing.\n");
+            return;
+        }
+
         Date dateOfPayment = new Date(date);
 
         if (dateOfPayment.isValid() == false) {
@@ -721,7 +728,11 @@ public class Controller {
             returnText.appendText("Roster is empty.\n");
             return;
         } else {
+            for (int i = 0; i < studentRoster.getSize(); i++) {
+                studentRoster.getStudentRoster()[i].tuitionDue();
+            }
             returnText.appendText(studentRoster.print());
+            returnText.appendText("------------------------------\n");
             return;
         }
     }
@@ -738,7 +749,11 @@ public class Controller {
             returnText.appendText("Roster is empty.\n");
             return;
         } else {
+            for (int i = 0; i < studentRoster.getSize(); i++) {
+                studentRoster.getStudentRoster()[i].tuitionDue();
+            }
             returnText.appendText(studentRoster.printByName());
+            returnText.appendText("------------------------------\n");
             return;
         }
     }
@@ -755,11 +770,16 @@ public class Controller {
             returnText.appendText("Roster is empty.\n");
             return;
         }
+
+        for (int i = 0; i < studentRoster.getSize(); i++) {
+            studentRoster.getStudentRoster()[i].tuitionDue();
+        }
+
         int paidStudents = 0;
         Student temp;
         Roster studentPaidRoster = new Roster();
-        for(int i = 0; i < studentRoster.getSize(); i++){
-            if(studentRoster.getStudentRoster()[i].getAmountPayed() != 0){
+        for (int i = 0; i < studentRoster.getSize(); i++) {
+            if (studentRoster.getStudentRoster()[i].getAmountPayed() != 0) {
                 temp = studentRoster.getStudentRoster()[i];
                 studentPaidRoster.add(temp);
                 paidStudents++;
@@ -770,23 +790,7 @@ public class Controller {
             return;
         } else {
             returnText.appendText(studentPaidRoster.printByDate());
-            }
-        /*double[] hasPayment = new double[studentRoster.getSize()];
-        for(int i = 0; i < studentRoster.getSize(); i++){
-            if(studentRoster.getStudentRoster()[i].getAmountPayed() != 0){
-                hasPayment[i] = studentRoster.getStudentRoster()[i].getAmountPayed();
-                paidStudents++;
-            }
+            returnText.appendText("------------------------------\n");
         }
-        if ((studentRoster.getSize() == 0) || (paidStudents == 0)) {
-            returnText.appendText("No students have paid.\n");
-            return;
-        } else {
-            for(int j = 0; j < studentRoster.getSize(); j ++){
-                for
-            }
-            returnText.appendText(studentRoster.printByName());
-            return;
-        }*/
     }
 }
