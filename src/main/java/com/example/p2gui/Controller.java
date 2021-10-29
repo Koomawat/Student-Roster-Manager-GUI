@@ -1,4 +1,4 @@
-package tuition;
+package com.example.p2gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -82,6 +82,24 @@ public class Controller {
      */
     @FXML
     private Button tuitionDue;
+
+    /**
+     * Print roster button to print out information regarding students in the roster.
+     */
+    @FXML
+    private Button printRoster;
+
+    /**
+     * Print roster by name button to print out information regarding students in the roster sorted by name.
+     */
+    @FXML
+    private Button printRosterByName;
+
+    /**
+     * Print students with payment button to print out information regarding students in the roster who have paid sorted by payment date.
+     */
+    @FXML
+    private Button printStudentsWithPayment;
 
     /**
      * Resident radio button.
@@ -689,5 +707,86 @@ public class Controller {
             returnText.appendText("Tuitions calculated.\n");
             return;
         }
+    }
+
+    /**
+     * Event handler for the Print Roster Button.
+     * Prints all students in the roster in current order.
+     *
+     * @param event the action events.
+     */
+    @FXML
+    void printRoster(ActionEvent event) {
+        if (studentRoster.getSize() == 0) {
+            returnText.appendText("Roster is empty.\n");
+            return;
+        } else {
+            returnText.appendText(studentRoster.print());
+            return;
+        }
+    }
+
+    /**
+     * Event handler for the Print Roster By Name Button.
+     * Prints all students in the roster by name.
+     *
+     * @param event the action events.
+     */
+    @FXML
+    void printRosterByName(ActionEvent event) {
+        if (studentRoster.getSize() == 0) {
+            returnText.appendText("Roster is empty.\n");
+            return;
+        } else {
+            returnText.appendText(studentRoster.printByName());
+            return;
+        }
+    }
+
+    /**
+     * Event handler for the Print Students With Payment button.
+     * Prints all students who have paid in order of payment date.
+     *
+     * @param event the action events.
+     */
+    @FXML
+    void printStudentsWithPayment(ActionEvent event) {
+        if (studentRoster.getSize() == 0) {
+            returnText.appendText("Roster is empty.\n");
+            return;
+        }
+        int paidStudents = 0;
+        Student temp;
+        Roster studentPaidRoster = new Roster();
+        for(int i = 0; i < studentRoster.getSize(); i++){
+            if(studentRoster.getStudentRoster()[i].getAmountPayed() != 0){
+                temp = studentRoster.getStudentRoster()[i];
+                studentPaidRoster.add(temp);
+                paidStudents++;
+            }
+        }
+        if (paidStudents == 0) {
+            returnText.appendText("No students have paid.\n");
+            return;
+        } else {
+            returnText.appendText(studentPaidRoster.printByDate());
+            }
+        /*double[] hasPayment = new double[studentRoster.getSize()];
+        for(int i = 0; i < studentRoster.getSize(); i++){
+            if(studentRoster.getStudentRoster()[i].getAmountPayed() != 0){
+                hasPayment[i] = studentRoster.getStudentRoster()[i].getAmountPayed();
+                paidStudents++;
+            }
+        }
+        if ((studentRoster.getSize() == 0) || (paidStudents == 0)) {
+            returnText.appendText("No students have paid.\n");
+            return;
+        } else {
+            for(int j = 0; j < studentRoster.getSize(); j ++){
+                for
+            }
+            returnText.appendText(studentRoster.printByName());
+            return;
+        }*/
     }
 }

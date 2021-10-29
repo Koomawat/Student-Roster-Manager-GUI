@@ -252,9 +252,9 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="374.0" text="Print Roster" />
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="432.0" text="Print Roster by Name" GridPane.rowIndex="1" />
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="421.0" text="Print Students with Payment" GridPane.rowIndex="2" />
+                              <Button fx:id="printRoster" mnemonicParsing="false" onAction="#printRoster" prefHeight="25.0" prefWidth="374.0" text="Print Roster" />
+                              <Button fx:id="printRosterByName" mnemonicParsing="false" onAction="#printRosterByName" prefHeight="25.0" prefWidth="432.0" text="Print Roster by Name" GridPane.rowIndex="1" />
+                              <Button fx:id="printStudentsWithPayment" mnemonicParsing="false" onAction="#printStudentsWithPayment" prefHeight="25.0" prefWidth="421.0" text="Print Students with Payment" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </children></AnchorPane>
@@ -302,7 +302,7 @@
                                     <Insets top="12.0" />
                                  </GridPane.margin>
                               </HBox>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="297.0" text="Change Student to Studying Abroad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Button mnemonicParsing="false" onAction="#changeStudentStatus" prefHeight="25.0" prefWidth="297.0" text="Change Student to Studying Abroad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </children></AnchorPane>
