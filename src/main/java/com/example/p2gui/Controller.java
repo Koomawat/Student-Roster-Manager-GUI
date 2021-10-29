@@ -1,4 +1,4 @@
-package com.example.p2gui;
+package tuition;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -367,9 +367,14 @@ public class Controller {
                 returnText.appendText("Student added.\n");
             } else if (tristateSelected == true) {
                 RadioButton statePicked = (RadioButton) state.getSelectedToggle();
+                if (statePicked == null) {
+                    returnText.appendText("No tristate state selected.\n");
+                    return;
+                }
+
                 String stateName = statePicked.getText();
 
-                if (stateName == "NY") {
+                if (stateName.equals("New York")) {
                     Student triNr = new TriState(name, major, stuCredits, "NY");
                     studentRoster.add(triNr);
                     returnText.appendText("Student added.\n");
@@ -573,6 +578,7 @@ public class Controller {
         }
 
         Student stuToFinance = uniqueStudent(name, major, studentRoster);
+        stuToFinance.tuitionDue();
 
         double financeRequest = Constants.MIN_PAYMENT;
 
